@@ -1,6 +1,6 @@
 .git/
 
-junk.iml
+*.iml
 .idea/
 
 .gradle/
