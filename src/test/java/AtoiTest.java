@@ -87,8 +87,4 @@ public class AtoiTest {
     }
 
   }
-  static class Atoi3 implements Atoi {
-    public int atoi(String str) {
-      if (st)
-    }
 }
