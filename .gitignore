@@ -1,0 +1,8 @@
+.git/
+
+junk.iml
+.idea/
+
+.gradle/
+
+build/
