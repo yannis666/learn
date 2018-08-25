@@ -12,7 +12,7 @@ import java.net.InetSocketAddress;
 public class JettyServer {
   private Server server = null;
 
-  public void start() throws Exception {
+  public synchronized void start() throws Exception {
     if (server != null) {
       throw new IllegalStateException();
     }
@@ -27,18 +27,20 @@ public class JettyServer {
     jerseyServlet.setInitParameter("jersey.config.server.provider.classnames", "JettyServer$Foo");
 
     server.start();
+
     Thread.sleep(1000 * 60 * 1);
     stop();
     System.out.println("hello");
   }
 
-  public void stop() throws Exception {
+  public synchronized void stop() throws Exception {
     if (server == null) {
       throw new IllegalStateException();
     }
     server.stop();
     server.destroy();
     server.join();
+    server = null;
   }
 
   @Path("/foo")
