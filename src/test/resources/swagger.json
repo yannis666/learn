@@ -1,0 +1,234 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Oracle Service meta data",
+    "description": "Oracle Service meta data - hand crafted swagger - geared towards extracting version info",
+    "version": "1.1",
+    "x-summary": "Use the REST API to access selected Oracle Service meta data"
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/paas/api/v1.1/uiutil/{identityDomainId}/metadata/typeDefinitions/{serviceType}": {
+      "get": {
+        "summary": "List All Templates",
+        "description": "View a list of available templates",
+        "operationId": "getTypeDefinition",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identityDomainId",
+            "in": "path",
+            "description": "Name of the Oracle Cloud identity domain",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceType",
+            "in": "path",
+            "description": "The service type.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/typeDefinition-response"
+            }
+          }
+        }
+      }
+    },
+    "/paas/api/v1.1/instancemgmt/{identityDomainId}/services/{serviceType}/instances/{instance}": {
+      "get": {
+        "summary": "Get version info for a service instance",
+        "description": "Get version info for a service instance",
+        "operationId": "getServiceInstanceInfo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identityDomainId",
+            "in": "path",
+            "description": "Name of the Oracle Cloud identity domain",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceType",
+            "in": "path",
+            "description": "The service type.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "instance",
+            "in": "path",
+            "description": "The service instance name.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/serviceInstance-response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "typeDefinition-response": {
+      "description": "the response",
+      "properties": {
+        "abbreviation": {
+          "type": "string"
+        },
+        "versions": {
+          "description": "Map of the releases.",
+          "type": "object",
+          "properties": {
+            "type": "string",
+            "pattern" : ".*"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/typeDefinition-versions"
+          }
+        }
+      }
+    },
+    "typeDefinition-versions": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "releaseVersion": {
+          "type": "string"
+        },
+        "components": {
+          "description": "Map of the component versions.",
+          "type": "object",
+          "properties": {
+            "type": "string",
+            "pattern" : ".*"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/typeDefinition-component-version"
+          }
+        }
+      }
+    },
+    "typeDefinition-component-version": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "object",
+          "properties": {
+            "type": "string",
+            "pattern": ".*"
+          },
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "serviceInstance-response": {
+      "type": "object",
+      "properties": {
+        "serviceVersion": {
+          "type": "string",
+          "required": true
+        },
+        "releaseVersion": {
+          "type": "string",
+          "required": true
+        },
+        "fadbConnstr": {
+          "type": "string"
+        },
+        "fadbConnstrWithPublicIP": {
+          "type": "string"
+        },
+        "components": {
+          "description": "Map of the component info.",
+          "type": "object",
+          "properties": {
+            "type": "string",
+            "pattern" : ".*"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/serviceInstance-component"
+          }
+        }
+      }
+    },
+    "serviceInstance-component": {
+      "type": "object",
+      "properties": {
+        "vmInstances": {
+          "type": "object",
+          "properties": {
+            "type": "string",
+            "pattern": ".*"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/serviceInstance-component-vmInstance"
+          }
+        }
+      }
+    },
+    "serviceInstance-component-vmInstance": {
+      "type": "object",
+      "properties": {
+        "hostName": {
+          "type": "string"
+        },
+        "fqHostName": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "isAdminNode": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BASIC": {
+      "type": "basic"
+    },
+    "OAUTH": {
+      "type": "oauth2",
+      "flow": "application"
+    }
+  },
+  "security": [
+    {
+      "BASIC": [
+      ]
+    },
+    {
+      "OAUTH": [
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "INITIAL": {
+      "allowables": [
+        "STARTING",
+        "FAILING"
+      ]
+    },
+    "STARTING": {
+      "allowables": [
+        "FAILING",
+        "RUNNING"
+      ]
+    },
+    "FAILING": {
+      "allowables": [
+        "FAILING",
+        "STOPPING"
+      ]
+    },
+    "RUNNING": {
+      "allowables": [
+        "FAILED",
+        "RUNNING"
+      ]
+    }
+  }
